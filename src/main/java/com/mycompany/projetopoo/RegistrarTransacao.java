@@ -17,7 +17,7 @@ public class RegistrarTransacao extends javax.swing.JFrame {
         SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
 
         // exemplo: adiciona clientes fictícios só pra teste
-        sistema.cadastrarCliente(new Cliente("Padrão", "00000000000", "00000000000", "padrão@email.com"));
+        sistema.cadastrarCliente(new Cliente("joao", "00000000000", "00000000000", "padrão@email.com"));
 
         for (int i = 0; i < sistema.getClientes().size(); i++) {
             Cliente c = sistema.getClientes().get(i);
