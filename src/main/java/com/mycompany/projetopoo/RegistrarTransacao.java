@@ -16,14 +16,34 @@ public class RegistrarTransacao extends javax.swing.JFrame {
         initComponents();
         SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
 
-        // exemplo: adiciona clientes fictícios só pra teste
-        sistema.cadastrarCliente(new Cliente("joao", "00000000000", "00000000000", "padrão@email.com"));
+        ServicoEscolher.addItem("Certidão de Nascimento");
+        ServicoEscolher.addItem("Certidão de Casamento");
+        ServicoEscolher.addItem("Certidão de Óbito");
+        ServicoEscolher.addItem("Cancelamento de Protesto");
+        ServicoEscolher.addItem("Outros (Especificar)");
+
+        // exemplo: adiciona cliente padrão pra teste
+        sistema.cadastrarCliente(new Cliente("Padrão", "00000000000", "00000000000", "padrao@email.com"));
 
         for (int i = 0; i < sistema.getClientes().size(); i++) {
             Cliente c = sistema.getClientes().get(i);
-            ClienteEscolher.addItem(c.getNome()); // ou só c se quiser o objeto inteiro
+            ClienteEscolher.addItem(c.getNome()); // ou ClienteEscolher.addItem(c);
         }
 
+        // ação automática ao trocar o serviço
+        ServicoEscolher.addActionListener(e -> {
+            String tipo = (String) ServicoEscolher.getSelectedItem();
+            if (tipo == null) {
+                return;
+            }
+
+            switch (tipo) {
+                case "Certidão de Nascimento", "Certidão de Casamento", "Certidão de Óbito" ->
+                    CampoValor.setText("55.50");
+                default ->
+                    CampoValor.setText("");
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -219,8 +239,6 @@ public class RegistrarTransacao extends javax.swing.JFrame {
         SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
         sistema.registrarTransacao(new Cliente(clienteSelecionado, "000", "000", "sememail"), servico, data);
 
-        
-
         // limpa os campos
         CampoDescricao.setText("");
         CampoValor.setText("");
@@ -230,7 +248,7 @@ public class RegistrarTransacao extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoRegistrarTransacaoActionPerformed
 
     private void ServicoEscolherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServicoEscolherActionPerformed
-            SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
+        SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
     }//GEN-LAST:event_ServicoEscolherActionPerformed
 
     /**

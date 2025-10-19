@@ -1,4 +1,8 @@
 package com.mycompany.projetopoo;
+
+import com.mycompany.projetopoo.RegistrarTransacao;
+import com.mycompany.projetopoo.SistemaDePagamento;
+import com.mycompany.projetopoo.TelaCadastroCliente;
 import java.awt.event.ActionEvent;
 
 /*
@@ -64,6 +68,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         SaldoAtual.setText("Saldo Atual");
+        SaldoAtual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaldoAtualActionPerformed(evt);
+            }
+        });
 
         Sair.setText("Sair");
         Sair.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +142,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
         sistema.exibirHistoricoTransacoes();
     }//GEN-LAST:event_HistoricoTransacaoActionPerformed
+
+    private void SaldoAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaldoAtualActionPerformed
+    SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
+    double saldo = sistema.calcularSaldoTotal();
+    javax.swing.JOptionPane.showMessageDialog(this, 
+        "Saldo total de transações: R$ " + String.format("%.2f", saldo));
+    }//GEN-LAST:event_SaldoAtualActionPerformed
 
     /**
      * @param args the command line arguments
