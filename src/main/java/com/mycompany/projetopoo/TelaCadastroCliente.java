@@ -164,7 +164,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_CampoCPFActionPerformed
 
     private void BotaoCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrar1ActionPerformed
-
+        
         String nome = CampoNome.getText();
         String cpf = CampoCPF.getText();
         String email = CampoTelefone.getText();
@@ -176,7 +176,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
         sistema.cadastrarCliente(novoCliente);
-
+        
 
         javax.swing.JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!");
 
@@ -197,9 +197,16 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoVoltarActionPerformed
 
     private void BotaoLimparClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimparClientesActionPerformed
+        int confirmacao = JOptionPane.showConfirmDialog(this, 
+        "Tem certeza que deseja DELETAR TODOS os clientes do banco de dados?", 
+        "Atenção!", JOptionPane.YES_NO_OPTION);
+    
+    if (confirmacao == JOptionPane.YES_OPTION) {
         SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
-        sistema.getClientes().clear();
-        javax.swing.JOptionPane.showMessageDialog(this, "Clientes Excluidos");
+        sistema.limparClientes(); //CHAMA O NOVO MÉTODO
+        
+        JOptionPane.showMessageDialog(this, "Todos os clientes foram removidos do banco.");
+    }
     }//GEN-LAST:event_BotaoLimparClientesActionPerformed
 
     /**

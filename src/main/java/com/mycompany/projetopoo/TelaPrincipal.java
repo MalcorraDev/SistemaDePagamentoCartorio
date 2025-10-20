@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
  */
 /**
  *
- * @author soare
+ * @author soares
  */
 
 public class TelaPrincipal extends javax.swing.JFrame {
