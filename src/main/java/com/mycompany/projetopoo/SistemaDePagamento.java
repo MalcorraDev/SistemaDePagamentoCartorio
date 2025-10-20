@@ -52,4 +52,8 @@ public class SistemaDePagamento {
         return clientes;
     }
 
+    public List<Transacao> getTransacoes() {
+    return transacao;
+}
+
 }

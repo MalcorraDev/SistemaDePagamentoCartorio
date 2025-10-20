@@ -2,9 +2,9 @@ package com.mycompany.projetopoo;
 
 public abstract class Servico {
 
-    private int id;
-    private String descricao;
-    private double valor;
+    public int id;
+    public String descricao;
+    public double valor;
 
     /*CONSTRUTOR*/
     public Servico(int id, String descricao, double valor) {

@@ -1,3 +1,4 @@
+
 package com.mycompany.projetopoo;
 
 import com.mycompany.projetopoo.RegistrarTransacao;
@@ -9,11 +10,11 @@ import java.awt.event.ActionEvent;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author soare
  */
+
 public class TelaPrincipal extends javax.swing.JFrame {
 
     /**
@@ -127,63 +128,64 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_SairActionPerformed
 
     private void RegistrarTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarTransacaoActionPerformed
-        RegistrarTransacao telatransacao = new RegistrarTransacao();
-        telatransacao.setVisible(true);
-        telatransacao.setLocale(null);
+        RegistrarTransacao tela = new RegistrarTransacao();
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
     }//GEN-LAST:event_RegistrarTransacaoActionPerformed
 
     private void CadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroClienteActionPerformed
-    TelaCadastroCliente tela = new TelaCadastroCliente();
-    tela.setVisible(true);  
-    tela.setLocationRelativeTo(null);
+        TelaCadastroCliente tela = new TelaCadastroCliente();
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
     }//GEN-LAST:event_CadastroClienteActionPerformed
 
     private void HistoricoTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoricoTransacaoActionPerformed
-        SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
-        sistema.exibirHistoricoTransacoes();
+        TelaHistoricoTransacao tela = new TelaHistoricoTransacao();
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
     }//GEN-LAST:event_HistoricoTransacaoActionPerformed
 
     private void SaldoAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaldoAtualActionPerformed
-    SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
-    double saldo = sistema.calcularSaldoTotal();
-    javax.swing.JOptionPane.showMessageDialog(this, 
-        "Saldo total de transações: R$ " + String.format("%.2f", saldo));
+        SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
+        double saldo = sistema.calcularSaldoTotal();
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "Saldo total de transações: R$ " + String.format("%.2f", saldo));
     }//GEN-LAST:event_SaldoAtualActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaPrincipal().setVisible(true);
-            }
-        });
+    } catch (ClassNotFoundException ex) {
+        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new TelaPrincipal().setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CadastroCliente;

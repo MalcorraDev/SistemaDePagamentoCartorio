@@ -19,7 +19,7 @@ public class Certidao extends Servico {
 
     @Override
     public String getDetalhes() {
-        return "Certidão (" + tipo + ") - " + getDescricao() + " | Valor: R$" + getValor();
+        return descricao + " - Tipo: " + tipo + " - Valor: R$" + valor;
     }
 
     @Override

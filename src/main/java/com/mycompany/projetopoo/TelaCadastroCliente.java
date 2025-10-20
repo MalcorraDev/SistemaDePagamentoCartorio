@@ -192,8 +192,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         TelaPrincipal tela = new TelaPrincipal();
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
-        tela.dispose();
         this.dispose();
+        tela.dispose();
     }//GEN-LAST:event_BotaoVoltarActionPerformed
 
     private void BotaoLimparClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimparClientesActionPerformed

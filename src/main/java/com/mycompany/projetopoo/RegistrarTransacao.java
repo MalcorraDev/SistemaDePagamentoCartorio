@@ -207,8 +207,8 @@ public class RegistrarTransacao extends javax.swing.JFrame {
         TelaPrincipal tela = new TelaPrincipal();
         tela.setVisible(true);
         tela.setLocationRelativeTo(null);
-        tela.dispose();
         this.dispose();
+        tela.dispose();
     }//GEN-LAST:event_BotaoVoltarActionPerformed
 
     private void BotaoRegistrarTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRegistrarTransacaoActionPerformed
@@ -217,6 +217,9 @@ public class RegistrarTransacao extends javax.swing.JFrame {
         String clienteSelecionado = (String) ClienteEscolher.getSelectedItem();
         String tipoServico = (String) ServicoEscolher.getSelectedItem();
         String descricao = CampoDescricao.getText();
+        if (descricao == null || descricao.isEmpty()) {
+            descricao = tipoServico; // usa o tipo de serviço como descrição padrão
+        }
 
         Servico servico;
 
