@@ -69,4 +69,52 @@ public class ClienteDAO {
         }
         return clientes;
     }
+
+    public int buscarIdPorNome(String nome) {
+        String sql = "SELECT id_cliente FROM cliente WHERE nome = ?";
+
+        try (Connection conexao = Conexao.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setString(1, nome);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_cliente");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar ID do cliente pelo nome: " + e.getMessage());
+            return -1;
+        }
+
+        return -1;
+    }
+
+    public Cliente buscarPorId(int idCliente) {
+        String sql = "SELECT id_cliente, nome, cpf, telefone, email FROM cliente WHERE id_cliente = ?";
+        Cliente cliente = null;
+
+        try (Connection conexao = Conexao.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setInt(1, idCliente);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // ASSUME que você tem um CONSTRUTOR no Cliente.java que aceita o ID
+                    cliente = new Cliente(
+                            rs.getInt("id_cliente"), // Necessita do ID aqui
+                            rs.getString("nome"),
+                            rs.getString("cpf"),
+                            rs.getString("telefone"),
+                            rs.getString("email")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar cliente por ID: " + e.getMessage());
+        }
+        return cliente;
+    }
+
 }

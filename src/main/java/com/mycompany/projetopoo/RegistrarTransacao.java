@@ -1,3 +1,4 @@
+
 package com.mycompany.projetopoo;
 
 import com.mycompany.projetopoo.CancelamentoProtesto;
@@ -5,43 +6,75 @@ import com.mycompany.projetopoo.Certidao;
 import com.mycompany.projetopoo.Cliente;
 import com.mycompany.projetopoo.Servico;
 import com.mycompany.projetopoo.SistemaDePagamento;
+import com.mycompany.projetopoo.Transacao;
+import javax.swing.JOptionPane;
+import java.text.DecimalFormat;
+import java.util.List;
 
-/**
- *
- * @author User
- */
+
 public class RegistrarTransacao extends javax.swing.JFrame {
+
+    private final List<Servico> listaServicos;
 
     public RegistrarTransacao() {
         initComponents();
         SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
 
-        ServicoEscolher.addItem("Certidão de Nascimento");
-        ServicoEscolher.addItem("Certidão de Casamento");
-        ServicoEscolher.addItem("Certidão de Óbito");
-        ServicoEscolher.addItem("Cancelamento de Protesto");
-        ServicoEscolher.addItem("Outros (Especificar)");
 
-        for (int i = 0; i < sistema.getClientes().size(); i++) {
-            Cliente c = sistema.getClientes().get(i);
-            ClienteEscolher.addItem(c.getNome()); // ou ClienteEscolher.addItem(c);
+        this.listaServicos = sistema.getServicos(); // Dados do Banco
+
+        for (Servico s : this.listaServicos) { //lista armazenada
+            ServicoEscolher.addItem(s.getDescricao());
         }
 
-        // ação automática ao trocar o serviço
+        for (Cliente c : sistema.getClientes()) {
+            ClienteEscolher.addItem(c.getNome());
+        }
         ServicoEscolher.addActionListener(e -> {
-            String tipo = (String) ServicoEscolher.getSelectedItem();
-            if (tipo == null) {
+            String descricaoSelecionada = (String) ServicoEscolher.getSelectedItem();
+            
+            if (descricaoSelecionada == null) {
                 return;
             }
 
-            switch (tipo) {
-                case "Certidão de Nascimento", "Certidão de Casamento", "Certidão de Óbito" ->
-                    CampoValor.setText("55.50");
-                default ->
-                    CampoValor.setText("");
+
+            Servico servicoSelecionado = null;
+            for (Servico s : this.listaServicos) {
+                if (s.getDescricao().equals(descricaoSelecionada)) {
+                    servicoSelecionado = s;
+                    break;
+                }
+            }
+            
+            if (servicoSelecionado == null) {
+                CampoValor.setText(""); 
+                CampoValor.setEditable(false);
+                return;
+            }
+            
+
+            double valor = servicoSelecionado.getValor();
+            
+            if (valor == 0.0) {
+
+                CampoValor.setText("0.00");
+                CampoValor.setEditable(true); //edição
+                
+                //editar a descrição
+                if (descricaoSelecionada.equals("Outros (Especificar)")) {
+                    CampoDescricao.setEditable(true);
+                } else {
+                    CampoDescricao.setEditable(false);
+                }
+                
+            } else {
+                //valor fixo do banco
+                CampoValor.setText(String.format("%.2f", valor));
+                CampoValor.setEditable(false); // Não permite edição
+                CampoDescricao.setEditable(false);
             }
         });
-    }
+    } // Fim do construtor
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -220,42 +253,63 @@ public class RegistrarTransacao extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoVoltarActionPerformed
 
     private void BotaoRegistrarTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRegistrarTransacaoActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(null, "Transação registrada com sucesso!");
-        String data = java.time.LocalDate.now().toString();
-        String clienteSelecionado = (String) ClienteEscolher.getSelectedItem();
-        String tipoServico = (String) ServicoEscolher.getSelectedItem();
-        String descricao = CampoDescricao.getText();
-        if (descricao == null || descricao.isEmpty()) {
-            descricao = tipoServico; // usa o tipo de serviço como descrição padrão
+     SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
+    
+    // 1. Coleta e validação dos dados da interface
+    String clienteNome = (String) ClienteEscolher.getSelectedItem();
+    String servicoDescricao = (String) ServicoEscolher.getSelectedItem();
+    String data = CampoData.getText();
+    double valor;
+    
+    if (clienteNome == null || servicoDescricao == null || data.isEmpty() || CampoValor.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios (Cliente, Serviço, Data, Valor).", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    // Tenta converter o valor (crucial para evitar erros de formato ou texto)
+    try {
+        // Assume que o usuário pode ter digitado vírgula ou ponto
+        String valorTexto = CampoValor.getText().replace(',', '.'); 
+        valor = Double.parseDouble(valorTexto);
+        
+        if (valor <= 0.0) {
+            JOptionPane.showMessageDialog(this, "O valor da transação deve ser positivo.", "Erro de Validação", JOptionPane.WARNING_MESSAGE);
+            return;
         }
+        
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Valor inválido. Use apenas números no formato correto (ex: 55.51).", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        Servico servico;
+    // 2. Busca de IDs no Banco (via SistemaDePagamento, que chama os DAOs)
+    int idCliente = sistema.getIdClientePorNome(clienteNome);
+    int idServico = sistema.getIdServicoPorDescricao(servicoDescricao);
 
-        if (tipoServico.equals("Certidão")) {
-            servico = new Certidao(1, descricao, "A"); // valor fixo dentro da classe Certidao
-        } else {
-            double valor = 0.0;
-            try {
-                valor = Double.parseDouble(CampoValor.getText());
-            } catch (NumberFormatException e) {
-                javax.swing.JOptionPane.showMessageDialog(null, "Valor inválido! Digite um número válido.");
-                return; // sai do método sem registrar
-            }
+    if (idCliente == -1 || idServico == -1) {
+        JOptionPane.showMessageDialog(this, "Erro de persistência: Cliente ou Serviço não encontrado no banco de dados. Verifique o console.", "Erro de Persistência", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-            String obs = CampoObservacao.getText();
-            servico = new CancelamentoProtesto(2, descricao, valor, obs);
-        }
+    // 3. Criação e Registro da Transação
+    try {
+        // Cria a Transação usando os IDs (o novo construtor)
+        Transacao novaTransacao = new Transacao(idCliente, idServico, data, valor); 
+        
+        // Chama o método que delega a inserção ao TransacaoDAO
+        sistema.registrarTransacao(novaTransacao); 
 
-        // Cria o sistema e registra
-        SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
-        sistema.registrarTransacao(new Cliente(clienteSelecionado, "000", "000", "sememail"), servico, data);
+        JOptionPane.showMessageDialog(this, "Transação registrada com sucesso no banco de dados!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        
+        // Limpar os campos para o próximo registro
+        CampoData.setText("");
+        // Não limpamos CampoValor e CampoDescricao, pois o ActionListener do Serviço deve redefinir eles.
+        
+    } catch (Exception e) {
+        // Captura qualquer erro inesperado (como falha de conexão)
+        JOptionPane.showMessageDialog(this, "Ocorreu um erro ao tentar registrar a transação: " + e.getMessage(), "Erro no Registro", JOptionPane.ERROR_MESSAGE);
+    }
 
-        // limpa os campos
-        CampoDescricao.setText("");
-        CampoValor.setText("");
-        CampoObservacao.setText("");
-        ServicoEscolher.setSelectedIndex(0);
-        ClienteEscolher.setSelectedIndex(0);
     }//GEN-LAST:event_BotaoRegistrarTransacaoActionPerformed
 
     private void ServicoEscolherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServicoEscolherActionPerformed
@@ -263,43 +317,43 @@ public class RegistrarTransacao extends javax.swing.JFrame {
     }//GEN-LAST:event_ServicoEscolherActionPerformed
 
     private void ClienteEscolherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteEscolherActionPerformed
-        
+
     }//GEN-LAST:event_ClienteEscolherActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistrarTransacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistrarTransacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistrarTransacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistrarTransacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistrarTransacao().setVisible(true);
-            }
-        });
+    } catch (ClassNotFoundException ex) {
+        java.util.logging.Logger.getLogger(RegistrarTransacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        java.util.logging.Logger.getLogger(RegistrarTransacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        java.util.logging.Logger.getLogger(RegistrarTransacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(RegistrarTransacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new RegistrarTransacao().setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoCadastrar;

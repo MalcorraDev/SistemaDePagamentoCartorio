@@ -5,6 +5,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import com.mycompany.projetopoo.Transacao;
+import javax.swing.JOptionPane;
+import java.util.List;
 
 public class TelaHistoricoTransacao extends javax.swing.JFrame {
 
@@ -13,8 +16,7 @@ public class TelaHistoricoTransacao extends javax.swing.JFrame {
         carregarTransacoes();
         SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
         atualizarTabela(sistema);
-     
-        
+
     }
 
     private void atualizarTabela(SistemaDePagamento sistema) {
@@ -23,16 +25,24 @@ public class TelaHistoricoTransacao extends javax.swing.JFrame {
 
         double total = 0.0;
 
+        // Puxa a lista de Transacoes (que contêm IDs)
         for (Transacao t : sistema.getTransacoes()) {
+
+            // TRADUÇÃO: Usa o SistemaDePagamento para buscar o NOME e a DESCRIÇÃO a partir dos IDs
+            String nomeCliente = sistema.getClienteNomePorId(t.getId_cliente());
+            String descricaoServico = sistema.getServicoDescricaoPorId(t.getId_servico());
+
             model.addRow(new Object[]{
-                t.getCliente().getNome(),
-                t.getservico().getDescricao(),
+                // Usa as strings resolvidas (nomeCliente e descricaoServico):
+                nomeCliente,
+                descricaoServico,
                 String.format("R$ %.2f", t.getvalor()),
                 t.getdata()
             });
             total += t.getvalor();
         }
-        
+
+        // Atualiza o Label com o saldo total
         LabelSaldo.setText("Saldo total: R$ " + String.format("%.2f", total));
     }
 

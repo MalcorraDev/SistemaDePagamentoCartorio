@@ -1,19 +1,26 @@
 package com.mycompany.projetopoo;
 
-public abstract class Servico {
+
+public class Servico { 
 
     public int id;
     public String descricao;
     public double valor;
 
-    /*CONSTRUTOR*/
+    //CONSTRUTOR PARA CADASTRO 
+    public Servico(String descricao, double valor) {
+        this.descricao = descricao;
+        this.valor = valor;
+    }
+
+    // CONSTRUTOR PARA BUSCA NO BANCO (com id) 
     public Servico(int id, String descricao, double valor) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
     }
 
-    /*GETTER AND SETTER*/
+     /*GETTER AND SETTER*/
     public void setId(int id) {
         this.id = id;
     }
@@ -38,5 +45,10 @@ public abstract class Servico {
         return valor;
     }
 
-    public abstract String getDetalhes();
+ 
+    public String getDetalhes() {
+        return descricao + " | Valor: R$" + valor;
+    }
+    
+    
 }

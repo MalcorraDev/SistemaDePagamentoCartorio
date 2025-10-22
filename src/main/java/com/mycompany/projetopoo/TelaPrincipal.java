@@ -5,6 +5,7 @@ import com.mycompany.projetopoo.RegistrarTransacao;
 import com.mycompany.projetopoo.SistemaDePagamento;
 import com.mycompany.projetopoo.TelaCadastroCliente;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -155,36 +156,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+    // Em SistemaDePagamento.java ou na TelaPrincipal.main
+    public static void main(String[] args) {
+        // ... (restante do seu código)
+
+        SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
+        List<Servico> listaServicos = sistema.getServicos(); // Chama o novo método
+
+        System.out.println("--- TESTE SERVIÇO DAO ---");
+        if (listaServicos.isEmpty()) {
+            System.out.println("ERRO: Nenhum serviço encontrado. A tabela 'servico' está vazia ou o SELECT falhou.");
+        } else {
+            System.out.println("Serviços encontrados: " + listaServicos.size());
+            for (Servico s : listaServicos) {
+                System.out.println("ID: " + s.getId() + " | Descrição: " + s.getDescricao() + " | Valor: R$" + s.getValor());
             }
         }
-    } catch (ClassNotFoundException ex) {
-        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
+    
 
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            new TelaPrincipal().setVisible(true);
-        }
-    });
+    java.awt.EventQueue.invokeLater ( new Runnable() {
+        
+
+    public void run() {
+        new TelaPrincipal().setVisible(true);
+    }
+});
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -14,6 +14,7 @@ com\mycompany\projetopoo\Cliente.class
 com\mycompany\projetopoo\TelaPrincipal.class
 com\mycompany\projetopoo\RegistrarTransacao.class
 com\mycompany\projetopoo\TelaPrincipal$3.class
+com\mycompany\projetopoo\dao\TransacaoDAO.class
 com\mycompany\projetopoo\Servico.class
 com\mycompany\projetopoo\TelaCadastroCliente.class
 com\mycompany\projetopoo\TelaPrincipal$6.class
@@ -28,6 +29,7 @@ com\mycompany\projetopoo\CancelamentoProtesto.class
 com\mycompany\projetopoo\RegistrarTransacao$2.class
 com\mycompany\projetopoo\TelaCadastroCliente$3.class
 com\mycompany\projetopoo\TelaPrincipal$4.class
+com\mycompany\projetopoo\dao\ServicoDAO.class
 com\mycompany\projetopoo\TelaPrincipal$2.class
 com\mycompany\projetopoo\TelaCadastroCliente$1.class
 com\mycompany\projetopoo\RegistrarTransacao$5.class

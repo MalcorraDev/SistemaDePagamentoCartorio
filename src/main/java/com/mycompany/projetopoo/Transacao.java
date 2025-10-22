@@ -2,51 +2,52 @@ package com.mycompany.projetopoo;
 
 public class Transacao {
 
-    private Cliente cliente;
-    private Servico servico;
+    private int id_transacao;
+    private int id_cliente;
+    private int id_servico;
     private String data;
     private double valor;
 
-    /*CONSTRUTOR*/
-    public Transacao(Cliente cliente, Servico servico, String data) {
-        this.cliente = cliente;
-        this.servico = servico;
+    public Transacao(int id_cliente, int id_servico, String data, double valor) {
+        this.id_cliente = id_cliente;
+        this.id_servico = id_servico;
         this.data = data;
-        this.valor = servico.getValor(); // pega direto do serviço
+        this.valor = valor;
+        
+        
     }
 
-    /*GETTER AND SETTER */
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setservico(Servico servico) {
-        this.servico = servico;
-    }
-
-    public Servico getservico() {
-        return servico;
-    }
-
-    public void setdata(String data) {
+    /*CONSTRUTOR para buscar (SELECT) */
+    // Recebe o ID gerado pelo banco
+    public Transacao(int id_transacao, int id_cliente, int id_servico, String data, double valor) {
+        this.id_transacao = id_transacao;
+        this.id_cliente = id_cliente;
+        this.id_servico = id_servico;
         this.data = data;
+        this.valor = valor;
     }
 
+    // Adicione/Ajuste Getters para os IDs
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
+    public int getId_servico() {
+        return id_servico;
+    }
+
+    public int getId_transacao() {
+        return id_transacao;
+    }
+
+    // Mantenha os demais getters (data, valor)
     public String getdata() {
         return data;
-    }
-
-    public void setvalor(double valor) {
-        this.valor = valor;
     }
 
     public double getvalor() {
         return valor;
     }
-    /*GETTER AND SETTER */
+
 
 }
