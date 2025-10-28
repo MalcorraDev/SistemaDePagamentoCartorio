@@ -26,46 +26,56 @@ public class TEste extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        CadastroCliente = new javax.swing.JButton();
-        RegistrarTransacao = new javax.swing.JButton();
-        HistoricoTransacao = new javax.swing.JButton();
-        SaldoAtual = new javax.swing.JButton();
-        Sair = new javax.swing.JButton();
+        CampoEmail = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        CampoNome = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        CampoCPF = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        CampoTelefone = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        BotaoCadastrar1 = new javax.swing.JButton();
+        BotaoVoltar = new javax.swing.JButton();
+        BotaoLimparClientes = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        CadastroCliente.setText("Cadastrar Cliente");
-        CadastroCliente.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Nome:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("CPF: ");
+
+        CampoCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CadastroClienteActionPerformed(evt);
+                CampoCPFActionPerformed(evt);
             }
         });
 
-        RegistrarTransacao.setText("Registrar Transação");
-        RegistrarTransacao.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Telefone");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Email");
+
+        BotaoCadastrar1.setText("Cadastrar");
+        BotaoCadastrar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegistrarTransacaoActionPerformed(evt);
+                BotaoCadastrar1ActionPerformed(evt);
             }
         });
 
-        HistoricoTransacao.setText("Histórico de Transações");
-        HistoricoTransacao.addActionListener(new java.awt.event.ActionListener() {
+        BotaoVoltar.setText("Voltar");
+        BotaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HistoricoTransacaoActionPerformed(evt);
+                BotaoVoltarActionPerformed(evt);
             }
         });
 
-        SaldoAtual.setText("Saldo Atual");
-        SaldoAtual.addActionListener(new java.awt.event.ActionListener() {
+        BotaoLimparClientes.setText("Limpar Clientes");
+        BotaoLimparClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaldoAtualActionPerformed(evt);
-            }
-        });
-
-        Sair.setText("Sair");
-        Sair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SairActionPerformed(evt);
+                BotaoLimparClientesActionPerformed(evt);
             }
         });
 
@@ -73,72 +83,107 @@ public class TEste extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(Sair, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(RegistrarTransacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CadastroCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(SaldoAtual))))
-                    .addComponent(HistoricoTransacao))
-                .addGap(113, 113, 113))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CampoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(CampoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CampoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CampoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(173, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BotaoCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BotaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BotaoLimparClientes)
+                        .addGap(43, 43, 43)))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(CadastroCliente)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RegistrarTransacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(HistoricoTransacao))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(Sair)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CampoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CampoCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CampoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CampoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotaoCadastrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SaldoAtual)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addComponent(BotaoLimparClientes)
+                .addGap(32, 32, 32))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroClienteActionPerformed
-        TelaCadastroCliente tela = new TelaCadastroCliente();
-        tela.setVisible(true);
-        tela.setLocationRelativeTo(null);
-    }//GEN-LAST:event_CadastroClienteActionPerformed
+    private void CampoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CampoCPFActionPerformed
 
-    private void RegistrarTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarTransacaoActionPerformed
-        RegistrarTransacao tela = new RegistrarTransacao();
-        tela.setVisible(true);
-        tela.setLocationRelativeTo(null);
-    }//GEN-LAST:event_RegistrarTransacaoActionPerformed
+    private void BotaoCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrar1ActionPerformed
 
-    private void HistoricoTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoricoTransacaoActionPerformed
-        TelaHistoricoTransacao tela = new TelaHistoricoTransacao();
-        tela.setVisible(true);
-        tela.setLocationRelativeTo(null);
-    }//GEN-LAST:event_HistoricoTransacaoActionPerformed
+        String nome = CampoNome.getText();
+        String cpf = CampoCPF.getText();
+        String email = CampoTelefone.getText();
+        String telefone = CampoEmail.getText();
 
-    private void SaldoAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaldoAtualActionPerformed
+        Cliente novoCliente = new Cliente(nome, cpf, telefone, email);
+
         SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
-        double saldo = sistema.calcularSaldoTotal();
-        javax.swing.JOptionPane.showMessageDialog(this,
-            "Saldo total de transações: R$ " + String.format("%.2f", saldo));
-    }//GEN-LAST:event_SaldoAtualActionPerformed
+        sistema.cadastrarCliente(novoCliente);
 
-    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
-        
-    }//GEN-LAST:event_SairActionPerformed
+        javax.swing.JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!");
+
+        CampoNome.setText("");
+        CampoCPF.setText("");
+        CampoTelefone.setText("");
+        CampoEmail.setText("");
+    }//GEN-LAST:event_BotaoCadastrar1ActionPerformed
+
+    private void BotaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoVoltarActionPerformed
+        TelaPrincipal tela = new TelaPrincipal();
+        tela.setVisible(true);
+        tela.setLocationRelativeTo(null);
+        this.dispose();
+        tela.dispose();
+    }//GEN-LAST:event_BotaoVoltarActionPerformed
+
+    private void BotaoLimparClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimparClientesActionPerformed
+    
+
+    }//GEN-LAST:event_BotaoLimparClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,10 +221,16 @@ public class TEste extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CadastroCliente;
-    private javax.swing.JButton HistoricoTransacao;
-    private javax.swing.JButton RegistrarTransacao;
-    private javax.swing.JButton Sair;
-    private javax.swing.JButton SaldoAtual;
+    private javax.swing.JButton BotaoCadastrar1;
+    private javax.swing.JToggleButton BotaoLimparClientes;
+    private javax.swing.JButton BotaoVoltar;
+    private javax.swing.JTextField CampoCPF;
+    private javax.swing.JTextField CampoEmail;
+    private javax.swing.JTextField CampoNome;
+    private javax.swing.JTextField CampoTelefone;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

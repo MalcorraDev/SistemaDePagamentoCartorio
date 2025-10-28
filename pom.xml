@@ -9,6 +9,12 @@
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>8.0.30</version> </dependency>
+    <dependency>
+        <groupId>com.formdev</groupId>
+        <artifactId>flatlaf</artifactId>
+      <version>3.6</version>
+      <type>jar</type>
+    </dependency>
 </dependencies>
     <packaging>jar</packaging>
     <properties>
