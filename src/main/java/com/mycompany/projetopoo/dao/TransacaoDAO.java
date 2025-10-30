@@ -69,4 +69,19 @@ public class TransacaoDAO {
         }
         return transacoes;
     }
+
+    public void registrarPix(double valor, LocalDate data) throws SQLException {
+        String sql = "INSERT INTO transacao (id_cliente, id_servico, data, valor) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = Conexao.getConexao(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, 1); // cliente padrão (PIX/Balcão)
+            ps.setInt(2, 5); // serviço 'Outros (Especificar)'
+            ps.setDate(3, java.sql.Date.valueOf(data));
+            ps.setDouble(4, valor);
+
+            ps.executeUpdate();
+        }
+    }
+    
 }
