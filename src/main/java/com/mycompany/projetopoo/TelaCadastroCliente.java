@@ -2,7 +2,6 @@ package com.mycompany.projetopoo;
 
 import javax.swing.JOptionPane;
 
-
 public class TelaCadastroCliente extends javax.swing.JFrame {
 
     /**
@@ -140,7 +139,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,16 +177,16 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(179, 179, 179)
+                .addGap(195, 195, 195)
                 .addComponent(jLabel5)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -210,11 +209,61 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_CampoCPFActionPerformed
 
     private void BotaoCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCadastrar1ActionPerformed
+        String nome = CampoNome.getText().trim();
+        String email = CampoEmail.getText().trim();
+        String telefone = CampoTelefone.getText().trim();
 
-        String nome = CampoNome.getText();
-        String cpf = CampoCPF.getText();
-        String email = CampoTelefone.getText();
-        String telefone = CampoEmail.getText();
+        //NOME
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Nome é obrigatório.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //NOME
+        if (nome.matches(".*\\d+.*")) {
+            JOptionPane.showMessageDialog(this,
+                    "O campo Nome não pode conter números.",
+                    "Erro de Nome",
+                    JOptionPane.ERROR_MESSAGE);
+            return; // Sai do método se houver erro
+        }
+        //CPF
+        String cpf = CampoCPF.getText().replaceAll("[^0-9]", ""); // Remove tudo que não for número
+        //CPF
+        if (cpf.isEmpty() || cpf.length() != 11) {
+            JOptionPane.showMessageDialog(this, "O CPF deve ter 11 dígitos.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //EMAIL
+        email = email.trim();
+
+        if (email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo E-mail é obrigatório.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String emailRegexFinal = "^[\\p{L}0-9._%+-]+@[\\p{L}0-9.-]+\\.[\\p{L}]{2,}(?:\\.[\\p{L}]{2,})?$";
+        //EMAIL
+        if (!email.matches(emailRegexFinal)) {
+            JOptionPane.showMessageDialog(this,
+                    "Formato de e-mail inválido. Exemplo: seu.nome@dominio.com.br",
+                    "Erro de E-mail",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //TELEFONE
+        if (telefone.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O campo Telefone é obrigatório.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //TELEFONE
+        if (telefone.length() < 10 || telefone.length() > 11) {
+            JOptionPane.showMessageDialog(this,
+                    "Número de Telefone inválido. Deve ter 10 ou 11 dígitos (incluindo DDD).",
+                    "Erro de Telefone",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         Cliente novoCliente = new Cliente(nome, cpf, telefone, email);
 
@@ -238,16 +287,16 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoVoltarActionPerformed
 
     private void BotaoLimparClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoLimparClientesActionPerformed
-        int confirmacao = JOptionPane.showConfirmDialog(this,
-            "Tem certeza que deseja DELETAR TODOS os clientes do banco de dados?",
-            "Atenção!", JOptionPane.YES_NO_OPTION);
+            int confirmacao = JOptionPane.showConfirmDialog(this,
+                    "Tem certeza que deseja DELETAR TODOS os clientes do banco de dados?",
+                    "Atenção!", JOptionPane.YES_NO_OPTION);
 
-        if (confirmacao == JOptionPane.YES_OPTION) {
-            SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
-            sistema.limparClientes(); //CHAMA O NOVO MÉTODO
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                SistemaDePagamento sistema = SistemaDePagamento.getInstancia();
+                sistema.limparClientes(); //CHAMA O NOVO MÉTODO
 
-            JOptionPane.showMessageDialog(this, "Todos os clientes foram removidos do banco.");
-        }
+                JOptionPane.showMessageDialog(this, "Todos os clientes foram removidos do banco.");
+            }
     }//GEN-LAST:event_BotaoLimparClientesActionPerformed
 
     /**

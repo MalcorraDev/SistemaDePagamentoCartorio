@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class ClienteDAO {
 
@@ -33,15 +34,72 @@ public class ClienteDAO {
     }
 
     public void limparTodos() {
-        String sql = "DELETE FROM cliente WHERE nome != 'Padrão (PIX/Balcão)'"; // Comando SQL para deletar TUDO
+        Connection conn = null;
+        PreparedStatement psDeleteTransacoes = null;
+        PreparedStatement psDeleteClientes = null;
 
-        try (Connection conexao = Conexao.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        try {
+            conn = Conexao.getConexao(); // use o nome do seu método de conexão
+            conn.setAutoCommit(false); // garante que tudo seja feito de uma vez
 
-            stmt.executeUpdate();
-            System.out.println("Todos os clientes foram deletados do banco de dados.");
+            // 1️⃣ Apagar as transações de clientes que não são o padrão
+            String sqlDeleteTransacoes = """
+            DELETE FROM transacao
+            WHERE id_cliente <> (
+                SELECT id_cliente FROM cliente WHERE nome = 'Padrão (PIX/Balcão)'
+            )
+        """;
+            psDeleteTransacoes = conn.prepareStatement(sqlDeleteTransacoes);
+            psDeleteTransacoes.executeUpdate();
+
+            // 2️⃣ Apagar os clientes não padrão
+            String sqlDeleteClientes = """
+            DELETE FROM cliente
+            WHERE nome <> 'Padrão (PIX/Balcão)'
+        """;
+            psDeleteClientes = conn.prepareStatement(sqlDeleteClientes);
+            psDeleteClientes.executeUpdate();
+
+            conn.commit();
 
         } catch (SQLException e) {
-            System.err.println("Erro ao limpar clientes: " + e.getMessage());
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+
+            if (e.getMessage().contains("foreign key constraint fails")) {
+                JOptionPane.showMessageDialog(null,
+                        "Não foi possível apagar alguns clientes porque existem transações vinculadas.",
+                        "Erro ao excluir clientes",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Erro ao limpar clientes: " + e.getMessage(),
+                        "Erro no Banco de Dados",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } finally {
+            try {
+                if (psDeleteTransacoes != null) {
+                    psDeleteTransacoes.close();
+                }
+                if (psDeleteClientes != null) {
+                    psDeleteClientes.close();
+                }
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

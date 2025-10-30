@@ -15,7 +15,6 @@ com\mycompany\projetopoo\TelaHistoricoTransacao.class
 com\mycompany\projetopoo\TesteConexao.class
 com\mycompany\projetopoo\Cliente.class
 com\mycompany\projetopoo\TelaPrincipal.class
-com\mycompany\projetopoo\TEste$5.class
 com\mycompany\projetopoo\RegistrarTransacao.class
 com\mycompany\projetopoo\TelaPrincipal$3.class
 com\mycompany\projetopoo\dao\TransacaoDAO.class
@@ -32,7 +31,6 @@ com\mycompany\projetopoo\TelaHistoricoTransacao$1.class
 com\mycompany\projetopoo\TEste$2.class
 com\mycompany\projetopoo\TelaPrincipal$1.class
 com\mycompany\projetopoo\CancelamentoProtesto.class
-com\mycompany\projetopoo\TEste$4.class
 com\mycompany\projetopoo\RegistrarTransacao$2.class
 com\mycompany\projetopoo\TelaCadastroCliente$3.class
 com\mycompany\projetopoo\TelaPrincipal$4.class
